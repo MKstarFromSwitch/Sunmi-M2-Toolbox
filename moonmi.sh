@@ -2,9 +2,6 @@
 set -euo pipefail
 scriptdir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 url="https://archive.org/download/nova-launcher-6.2.19/NovaLauncher_6.2.19.apk"
-cleanup() {
-  rm -f "$scriptdir/launcher.apk"
-}
 cleanup() { rm -f "$scriptdir/launcher.apk"; }
 trap cleanup EXIT SIGINT
 
