@@ -2,9 +2,13 @@
 set -euo pipefail
 scriptdir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 url="https://archive.org/download/nova-launcher-6.2.19/NovaLauncher_6.2.19.apk"
+<<<<<<< HEAD
 cleanup() {
   rm -f "$scriptdir/launcher.apk"
 }
+=======
+cleanup() { rm -f "$scriptdir/launcher.apk"; }
+>>>>>>> 99460e8 (Fixes to stuff)
 trap cleanup EXIT SIGINT
 
 depcheck() {
@@ -47,10 +51,15 @@ adb wait-for-device
 echo "Found ADB device."
 echo "Installing Nova Launcher..."
 adb install "$scriptdir/launcher.apk"
+<<<<<<< HEAD
 echo "Install successful."
 echo "Disabling existing launcher..."
+=======
+echo "Disabling Sunmi Launcher..."
+>>>>>>> 99460e8 (Fixes to stuff)
 adb shell pm disable-user --user 0 com.woyou.launcher
 echo
 echo "Install successful."
+echo "If you are in a black screen with the navigation bar showing, press the home button (the one that looks like an O) once."
 echo "Enjoy your Moonmi M2!"
 exit 0
