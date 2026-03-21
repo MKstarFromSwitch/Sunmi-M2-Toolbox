@@ -123,9 +123,9 @@ main() {
      inform "Don't worry, it's not that scary."
      echo
      log "Go to this link on your browser and click Download (scroll down if you don't see it): $gms_url"
-     log "After the download finishes, run this command (you're not done yet, wait for the next step): mv com.google.android.gms_26.09.31_\(040300-877989800\)-260931000_minAPI23\(armeabi-v7a\)\(nodpi\)_apkmirror.com.apk gms.apk && adb install -r gms.apk"
+     log "After the download finishes, run this command (you're not done yet, wait for the next step): mv com.google.android.gms*.apk gms.apk && adb install -r gms.apk"
      log "After adb says 'Success', go to this link on your browser and click Download: $playstore_url"
-     log "After the download finishes, run this command (you are done once this finishes): mv com.android.vending_44.5.23-23_0_PR_715840561-84452300_minAPI23\(arm64-v8a,armeabi-v7a,x86,x86_64\)\(nodpi\)_apkmirror.com.apk pstore.apk && adb install -r pstore.apk"
+     log "After the download finishes, run this command (you are done once this finishes): mv com.android.vending*.apk pstore.apk && adb install -r pstore.apk"
      log "After adb says 'Success', you are done!"
      echo
      pause_exit
@@ -138,9 +138,9 @@ main() {
      ;;
    esac
 esac
-         
-echo "=== Sunmi-M2-Toolbox ==="
-echo "A toolbox for your Sunmi M2"
+} # I FORGOT THIS BRACKET
+
+header
 echo
 log "Performing dependency check..."
 
@@ -155,12 +155,9 @@ done
 log "Waiting for Sunmi M2..." # the logic below is a little implemented by ChatGPT
 
 # Detect Sunmi M2 IDs (slightly implemented by ChatGPT)
-device_found=$(lsusb | grep -E '05c6:(9008|9091|9039)' | sed -E 's/(9008|9091|9039)//' | xargs)
-
-if [[ -z "$device_found" ]]; then
-    warn "No Sunmi M2 detected. Make sure it is plugged in."
-    exit 1
-fi
+until device_found=$(lsusb | grep -E '05c6:(9008|9091|9039)' | sed -E 's/(9008|9091|9039)//' | xargs); do
+  sleep 1
+done
 
 # Check if the device is in EDL mode (05c6:9008) (implemented by ChatGPT)
 if lsusb | grep -q '05c6:9008'; then
