@@ -51,6 +51,7 @@ install_nova() {
   adb install "$tmpdir/nova.apk"
 
   $disable && adb shell pm disable-user --user 0 com.woyou.launcher
+  adb shell input keyevent 3
 
   log "Install successful."
 }
